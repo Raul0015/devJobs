@@ -41,7 +41,7 @@ exports.mostrarVacante = async (req, res, next) => {
     if(!vacante){
         return next();
     }
-    console.log(vacante);
+    //console.log(vacante);
     res.render('vacante', {
         vacante,
         nombrePagina: vacante.titulo,
@@ -58,7 +58,8 @@ exports.formEditarVacante = async (req, res, next) => {
 
     if( req.user._id != vacante.autor._id.toString() ){
         req.flash('error', 'Permiso Denegado');
-        res.redirect(`/`);
+        res.redirect('back');
+        return;
     }
 
     res.render('editar-vacante', {
