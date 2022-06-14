@@ -26,8 +26,9 @@
         <div class="vacante-descripcion">
             {{{vacante.descripcion}}}
         </div>
-
+        <!-- BOTON EDITAR -->
         <a href="/vacantes/editar/{{vacante.url}}" class="btn btn-azul editar-btn">Editar Vacante</a>
+        <!-- BOTON EDITAR -->
     </main>
     <aside class="sidebar">
         <h2>Conocimientos Deseados</h2>
@@ -47,15 +48,15 @@
         enctype="multipart/form-data">
             <div class="campo">
                 <label>Nombre</label>
-                <input type="text" name="nombre" placeholder="Tu nombre">
+                <input type="text" name="nombre" placeholder="Tu nombre" required>
             </div>
             <div class="campo">
                 <label>E-mail</label>
-                <input type="email" name="email" placeholder="Tu email">
+                <input type="email" name="email" placeholder="Tu email" required>
             </div>
             <div class="campo">
                 <label>CV (PDF)</label>
-                <input type="file" name="cv">
+                <input type="file" name="cv" required>
             </div>
             <div class="campo">
                 <input type="submit" class="btn btn-verde" value="Enviar">

@@ -6,6 +6,7 @@ const shortid = require('shortid');
 
 
 exports.formularioNuevaVacante = (req, res) => {
+
     res.render('nueva-vacante', {
         nombrePagina: 'Nueva Vacante',
         tagline: 'Llena el formulario y publica tu vacante',
@@ -40,7 +41,7 @@ exports.mostrarVacante = async (req, res, next) => {
     if(!vacante){
         return next();
     }
-
+    console.log(vacante);
     res.render('vacante', {
         vacante,
         nombrePagina: vacante.titulo,
@@ -54,6 +55,12 @@ exports.formEditarVacante = async (req, res, next) => {
     if(!vacante){
         return next();
     }
+
+    if( req.user._id != vacante.autor._id.toString() ){
+        req.flash('error', 'Permiso Denegado');
+        res.redirect(`/vacantes/${req.params.url}`);
+    }
+
     res.render('editar-vacante', {
         vacante,
         nombrePagina: `Editar Vacante: ${vacante.titulo}`,

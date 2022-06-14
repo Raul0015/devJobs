@@ -115,7 +115,7 @@ const accionesListado = e =>{
           })
     }
     else if(e.target.tagName === 'A'){
-        console.log(e.target.tagName);
+        //console.log(e.target.tagName);
         return;
         window.location.href = e.target.href;
     }
