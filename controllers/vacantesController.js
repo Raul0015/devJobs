@@ -58,7 +58,7 @@ exports.formEditarVacante = async (req, res, next) => {
 
     if( req.user._id != vacante.autor._id.toString() ){
         req.flash('error', 'Permiso Denegado');
-        res.redirect(`/vacantes/${req.params.url}`);
+        res.redirect(`/`);
     }
 
     res.render('editar-vacante', {
