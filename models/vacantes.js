@@ -11,7 +11,7 @@ const vacanteSchema = new mongoose.Schema({
         trim: true
     },
     empresa: {
-        type:String,
+        type: String,
         trim: true
     },
     ubicacion: {
@@ -34,7 +34,7 @@ const vacanteSchema = new mongoose.Schema({
     },
     url: {
         type: String,
-        lowercase:true
+        lowercase: true
     },
     skills: [String],
     candidatos: [{
@@ -45,11 +45,11 @@ const vacanteSchema = new mongoose.Schema({
     autor: {
         type: mongoose.Schema.ObjectId,
         ref: 'Usuarios',
-        required:'El autor es obligatorio'
+        required: 'El autor es obligatorio'
     }
 });
 
-vacanteSchema.pre('save', function(next) {
+vacanteSchema.pre('save', function (next) {
     const url = slug(this.titulo);
     this.url = `${url}-${shortid.generate()}`
     next();

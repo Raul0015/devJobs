@@ -19,11 +19,11 @@ module.exports = {
         )
     },
 
-    mostrarAlertas: (errores = {}, alertas) =>{
+    mostrarAlertas: (errores = {}, alertas) => {
         const categoria = Object.keys(errores);
 
         let html = '';
-        if(categoria.length){
+        if (categoria.length) {
             errores[categoria].forEach(error => {
                 html += `
                     <div class="${categoria} alerta">

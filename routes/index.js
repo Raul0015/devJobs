@@ -8,12 +8,12 @@ const authController = require('../controllers/authController');
 ruta.get('/', homeController.mostrarTrabajos);
 
 // Crear vacante
-ruta.get('/vacantes/nueva', 
+ruta.get('/vacantes/nueva',
     authController.verificarUsuario,
     vacantesController.formularioNuevaVacante
 );
 
-ruta.post('/vacantes/nueva', 
+ruta.post('/vacantes/nueva',
     authController.verificarUsuario,
     vacantesController.validarVacante,
     vacantesController.agregarVacante
@@ -23,12 +23,12 @@ ruta.post('/vacantes/nueva',
 ruta.get('/vacantes/:url', vacantesController.mostrarVacante);
 
 //Editar Vacante
-ruta.get('/vacantes/editar/:url', 
+ruta.get('/vacantes/editar/:url',
     authController.verificarUsuario,
     vacantesController.formEditarVacante
 );
 
-ruta.post('/vacantes/editar/:url', 
+ruta.post('/vacantes/editar/:url',
     authController.verificarUsuario,
     vacantesController.validarVacante,
     vacantesController.editarVacante
@@ -41,7 +41,7 @@ ruta.delete('/vacantes/eliminar/:id',
 
 // Crear Cuentas
 ruta.get('/crear-cuenta', usuariosController.formCrearCuenta);
-ruta.post('/crear-cuenta', 
+ruta.post('/crear-cuenta',
     usuariosController.validarRegistro,
     usuariosController.crearUsuario);
 
@@ -81,7 +81,7 @@ ruta.post('/editar-perfil',
 );
 
 // Recibir Mensajes de Candidatos
-ruta.post('/vacantes/:url', 
+ruta.post('/vacantes/:url',
     vacantesController.subirCV,
     vacantesController.contactar,
 )
