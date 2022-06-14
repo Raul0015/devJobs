@@ -54,15 +54,19 @@ ruta.get('/cerrar-sesion',
     authController.verificarUsuario,
     authController.cerrarSesion);
 
+// Resetear password (emails)
+ruta.get('/reestablecer-password', authController.formReestablecerPassword);
+ruta.post('/reestablecer-password', authController.enviarToken);
+
 //Panel de administracion
-ruta.get('/administracion', 
+ruta.get('/administracion',
     authController.verificarUsuario,
     authController.mostrarPanel);
 
 // Editar perfil
-ruta.get('/editar-perfil', 
+ruta.get('/editar-perfil',
     authController.verificarUsuario,
-    usuariosController.formEditarPerfil    
+    usuariosController.formEditarPerfil
 );
 
 ruta.post('/editar-perfil',
@@ -71,5 +75,17 @@ ruta.post('/editar-perfil',
     usuariosController.subirImagen,
     usuariosController.editarPerfil
 );
+
+// Recibir Mensajes de Candidatos
+ruta.post('/vacantes/:url', 
+    vacantesController.subirCV,
+    vacantesController.contactar,
+)
+
+// Muestra los candidatos por vacante
+ruta.get('/candidatos/:id',
+    authController.verificarUsuario,
+    vacantesController.mostrarCandidatos
+)
 
 module.exports = ruta
