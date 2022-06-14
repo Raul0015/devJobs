@@ -82,7 +82,12 @@ app.use((error, req, res) => {
 })
 
 // Puerto
-app.listen(process.env.PUERTO);
+const host = '0.0.0.0';
+const port = process.env.PORT;
+
+app.listen(port, host, () => {
+    console.log('El servidor esta funcionando');
+});
 // const port = process.env.PORT || 3000;
 // app.listen(port, () => {
 //     console.log(`Trabajando en el puerto ${port}`);
