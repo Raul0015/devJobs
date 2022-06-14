@@ -58,6 +58,10 @@ ruta.get('/cerrar-sesion',
 ruta.get('/reestablecer-password', authController.formReestablecerPassword);
 ruta.post('/reestablecer-password', authController.enviarToken);
 
+// Resetear Password ( Almacenar en la BD )
+ruta.get('/reestablecer-password/:token', authController.reestablecerPassword);
+ruta.post('/reestablecer-password/:token', authController.guardarPassword);
+
 //Panel de administracion
 ruta.get('/administracion',
     authController.verificarUsuario,
@@ -87,5 +91,9 @@ ruta.get('/candidatos/:id',
     authController.verificarUsuario,
     vacantesController.mostrarCandidatos
 )
+
+// Buscador de Vacantes
+ruta.post('/buscador', vacantesController.buscarVacantes);
+
 
 module.exports = ruta

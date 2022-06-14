@@ -203,7 +203,7 @@ exports.contactar = async (req, res, next) => {
 exports.mostrarCandidatos = async (req, res, next) => {
     const vacante = await Vacante.findById(req.params.id);
 
-    if( vacante.autor == req.user._id.toString() ){
+    if( vacante.autor != req.user._id.toString() ){
         return next();
     }
     if(!vacante) return next();
@@ -214,5 +214,23 @@ exports.mostrarCandidatos = async (req, res, next) => {
         nombre: req.user.nombre,
         imagen: req.user.imagen,
         candidatos: vacante.candidatos
+    })
+}
+
+
+// Buscador de Vacantes
+
+exports.buscarVacantes = async (req, res) => {
+    const vacantes = await Vacante.find({
+        $text: {
+            $search: req.body.q
+        }
+    });
+
+    // mostrar las vacantes
+    res.render('home', {
+        nombrePagina: `Resultados para la busqueda: ${req.body.q}`,
+        barra: true,
+        vacantes
     })
 }

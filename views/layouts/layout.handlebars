@@ -18,8 +18,8 @@
 
         {{#if barra}}
             <div class="buscador">
-                <form action="#">
-                    <input type="text" class="buscar">
+                <form action="/buscador" method="POST">
+                    <input type="text" name="q" class="buscar">
                     <input type="submit" class="Buscar">
                 </form>
             </div>

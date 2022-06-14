@@ -3,6 +3,7 @@ const passport = require('passport');
 const Vacante = require('../models/vacantes');
 const Usuarios = require('../models/usuarios')
 const crypto = require('crypto');
+const enviarEmail = require('../handlers/email');
 
 exports.autenticarUsuario =passport.authenticate('local', {
     successRedirect: '/administracion',
@@ -29,7 +30,6 @@ exports.mostrarPanel = async (req, res) => {
 
     // Consultar el usuario autrnticado
     const vacantes = await  Vacante.find({ autor: req.user._id});
-    console.log(vacantes);
     res.render('administracion', {
         nombrePagina: 'Panel de Administración',
         tagline: 'Crea y Administra tu vacantes desde aquí',
@@ -75,9 +75,66 @@ exports.enviarToken = async (req, res) => {
 
     // Guardar el usuario
     await usuario.save();
-    const resetUrl = `http://${req.headers.host}//reestablecer-password/${usuario.token}`;
+    const resetUrl = `http://${req.headers.host}/reestablecer-password/${usuario.token}`;
     // console.log(resetUrl);
+
+    // Enviar notificacion por email
+    await enviarEmail.enviar({
+        usuario,
+        subject: 'Password Reset',
+        resetUrl,
+        archivo: 'reset'
+    });
+
+    // Todo Correcto
     req.flash('correcto', 'Revisa tu email para las indicaciones');
     res.redirect('/iniciar-sesion');
 
+}
+
+// Valida si el token es valido y el usuario existe, muestra la vista
+exports.reestablecerPassword = async (req, res) => {
+    const usuario = await Usuarios.findOne({
+        token: req.params.token,
+        expira: {
+            $gt: Date.now()
+        }
+    });
+    if(!usuario){
+        req.flash('error', 'El formulario ya no es valido, intenta de nuevo');
+        return res.redirect('/reestablecer-password');
+    }
+
+    // Mostrar el formulario
+    res.render('nuevo-password', {
+        nombrePagina: 'Nuevo Password'
+    })
+}
+
+// Almacenar el nuevo password en la BD
+exports.guardarPassword = async (req, res) => {
+    const usuario = await Usuarios.findOne({
+        token: req.params.token,
+        expira: {
+            $gt: Date.now()
+        }
+    });
+
+    // No existe el usuario o  el token es invalido
+    if(!usuario){
+        req.flash('error', 'El formulario ya no es valido, intenta de nuevo');
+        return res.redirect('/reestablecer-password');
+    }
+
+    // Asignar nuevo password, limpiar valores previos
+    usuario.password = req.body.password;
+    usuario.token = undefined;
+    usuario.expira = undefined;
+
+    // agregar y eliminar valores del objeto
+    await usuario.save();
+
+    // redirigir
+    req.flash('correcto', 'Password Modicado Correctamente');
+    res.redirect('/iniciar-sesion');
 }
