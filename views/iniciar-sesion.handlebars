@@ -1,22 +1,26 @@
 <main class="contenedor">
-    <form action="/iniciar-sesion" method="POST" class="default-form">
-        <div class="campo">
-            <label>E-mail</label>
-            <input type="email" name="email" placeholder="Ej. ejemplo@ejemplo.com">
-        </div>
+  <form action="/iniciar-sesion" method="POST" class="default-form">
+    <div class="campo">
+      <label>E-mail</label>
+      <input type="email" name="email" placeholder="Ej. ejemplo@ejemplo.com" />
+    </div>
 
-        <div class="campo">
-            <label>Password</label>
-            <input type="password" name="password" placeholder="Ingresa tu Password">
-        </div>
+    <div class="campo">
+      <label>Password</label>
+      <input
+        type="password"
+        name="password"
+        placeholder="Ingresa tu Password"
+      />
+    </div>
 
-        <div class="campo acciones">
-            <a href="/crear-cuenta">Crear Nueva Cuenta</a>
-            <a href="/reestablecer-password">Olvidé mi Password</a>
-        </div>
+    <div class="campo acciones">
+      <a href="/crear-cuenta">Crear Nueva Cuenta</a>
+      <a href="/reestablecer-password">Olvidé mi Password</a>
+    </div>
 
-        <div class="campo">
-            <input type="submit" value="Iniciar Sesión" class="btn btn-azul">
-        </div>
-    </form>
+    <div class="campo">
+      <input type="submit" value="Iniciar Sesión" class="btn btn-azul" />
+    </div>
+  </form>
 </main>
